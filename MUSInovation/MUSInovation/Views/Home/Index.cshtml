@@ -4,11 +4,12 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <p> @data.Title</p>
+    <h1 class="display-4">Bienvenue</h1>
+    @*<p> @data.Title</p>
     <p> Url de l'image : @data.Poster</p>
-    <img src="@data.Poster">
+    <img src="@data.Poster">*@
+    <img src="img/home_logo.png">
+    <a asp-action="FilmsRecents" asp-controller="home" class="btn btn-info" role="button">Films les plus récents</a>
 </div>
 @*<div class="container">
     <div class="row">

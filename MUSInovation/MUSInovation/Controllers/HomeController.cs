@@ -33,6 +33,11 @@ namespace MUSInovation.Controllers
             return View();
         }
 
+        public IActionResult FilmsRecents()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
