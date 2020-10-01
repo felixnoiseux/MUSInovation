@@ -25,18 +25,28 @@ namespace MUSInovation.Controllers
 
         public IActionResult Index()
         {
-            var client = new RestClient("http://www.omdbapi.com");
-            var request = new RestRequest("/?t=halloween&apikey=a0564dcc", Method.GET);
-            IRestResponse response = client.Execute(request);
-            Movie film = JsonConvert.DeserializeObject<Movie>(response.Content);
-           ViewBag.Info = film;
+           // var client = new RestClient("http://www.omdbapi.com");
+           // var request = new RestRequest("/?t=halloween&apikey=a0564dcc", Method.GET);
+           // IRestResponse response = client.Execute(request);
+           // Movie film = JsonConvert.DeserializeObject<Movie>(response.Content);
+           //ViewBag.Info = film;
             return View();
         }
 
-        public IActionResult FilmsRecents()
+        [HttpPost]
+        public IActionResult Rechercher(Recherche recherche)
+        {
+            string valeur = recherche.valeur_recherche;
+
+            return View();
+        }
+
+        public IActionResult AfficherFilm(Movie m)
         {
             return View();
         }
+
+      
 
         public IActionResult Privacy()
         {

@@ -1,0 +1,33 @@
+﻿@model Movies
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Films les plus récents</h1>
+
+</div>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Année</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (Movie m in Model.LstMovies)
+        {
+                <tr>
+                    <td><a asp-controller="Film" asp-action="AfficherFilm" asp-route-id="@m.imdbID">@m.Title</a> </td>
+                    <td>@m.Year</td>
+                </tr>
+        }
+
+    </tbody>
+</table>

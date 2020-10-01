@@ -34,7 +34,7 @@ namespace MUSInovation.Models
         public string Actors { get; set; }
 
         [DataMember(Name = "Plot", IsRequired = false)]
-        public string Plot { get; set; }
+        public string Plot { get; set; } //Description
 
         [DataMember(Name = "Language", IsRequired = false)]
         public string Language { get; set; }
@@ -80,5 +80,6 @@ namespace MUSInovation.Models
 
         [DataMember(Name = "Response", IsRequired = false)]
         public string Response { get; set; }
+
     }
 }

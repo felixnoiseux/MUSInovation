@@ -1,0 +1,21 @@
+﻿@model Movie
+
+<div class="text-center">
+    <h1>@Model.Title</h1>
+    <p>@Model.Plot</p>
+    <br>
+    <div class="border">
+
+        @if (@Model.Poster == "N/A")
+        {
+            <img src="https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg" />
+
+        }
+        else
+        {
+            <img src="@Model.Poster" />
+
+        }
+
+    </div>
+</div>
