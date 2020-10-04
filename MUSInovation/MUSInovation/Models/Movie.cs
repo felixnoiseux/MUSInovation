@@ -81,5 +81,7 @@ namespace MUSInovation.Models
         [DataMember(Name = "Response", IsRequired = false)]
         public string Response { get; set; }
 
+        public string YoutubeID { get; set; }
+
     }
 }
