@@ -1,0 +1,20 @@
+﻿@model ChuckNorris
+
+<h1 class="text-center">ChuckNorris Api</h1>
+<a asp-controller="ChuckNorris" asp-action="Index">Refresh</a>
+    <div class="text-center shadow p-3 mb-5 bg-white rounded">
+
+
+        
+
+        <img src="@Model.Icon_url">
+
+        <h1>@Model.Value</h1>
+
+        <a href="@Model.Url" target="_blank">Voir sur le site officiel</a>
+
+
+
+
+
+    </div>

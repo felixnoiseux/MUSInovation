@@ -1,0 +1,29 @@
+﻿@model LoveCalculator
+
+    <div class="text-center shadow p-3 mb-5 bg-white rounded">
+
+
+
+
+
+        <h1>@Model.FirstName + @Model.SecondName = @Model.Percentage %</h1>
+        <h3>@Model.Result</h3>
+
+        @if (int.Parse(Model.Percentage) < 50)
+        {
+            <img src="~/img/broken-heart.png" asp-append-version="true" class="img-thumbnail w-25 h-25">
+
+        }
+        else
+        {
+            <img src="~/img/heart.png" asp-append-version="true" class="img-thumbnail w-25 h-25">
+
+
+        }
+
+        <br><br>
+        <a asp-controller="LoveCalculator" asp-action="Index" class="btn btn-primary">Retry</a>
+
+
+
+    </div>
