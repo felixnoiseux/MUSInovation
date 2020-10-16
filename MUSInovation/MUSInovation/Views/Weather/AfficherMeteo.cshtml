@@ -1,0 +1,54 @@
+﻿@model Properties
+
+@{List<Period> Periods = Model.Periods;}
+
+<div class="text-center">
+    <h1 class="display-4">Météo à New York dans les prochains jours</h1>
+</div>
+
+@for (int i = 0; i < Periods.Count; ++i)
+{
+    Period p = Periods[i];
+    <h3>@p.Name</h3>
+    <div class="text-center shadow p-3 mb-5 bg-white rounded">
+        <table width="100%">
+            <tr>
+                <td width="88px" rowspan="3">
+                    <img src="@p.Icon">
+                </td>
+                <td>
+                    <span><b>Température: </b>@p.Temperature °@p.TemperatureUnit</span>
+                </td>
+                <td>
+                    <span><b>Prévision Courte: </b>@p.ShortForecast</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span><b>Vitesse du Vent: </b>@p.WindSpeed</span>
+                </td>
+                <td>
+                    <span><b>Direction du Vent: </b>@p.WindDirection</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span><b>Début: </b>@p.StartTime</span>
+                </td>
+                <td>
+                    <span><b>Fin: </b>@p.EndTime</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <hr>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <span><b>Prévision Détaillée: </b>@p.DetailedForecast</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
