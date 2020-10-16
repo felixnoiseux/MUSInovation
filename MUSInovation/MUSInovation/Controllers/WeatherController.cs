@@ -11,34 +11,34 @@ namespace MUSInovation.Controllers
 {
     public class WeatherController : Controller
     {
-        public static Dictionary<string, string> PointsDisponibles = new Dictionary<string, string>(){
-            { "New York", "OKX/33,37" },
-            { "San Francisco", "MTR/87,126" },
-            { "Boston", "BOX/72,76" }
+        public static readonly Dictionary<string, string> PointsDisponibles = new Dictionary<string, string>(){
+            { "NY", "OKX/33,37" },
+            { "SF", "MTR/87,126" },
+            { "BOS", "BOX/72,76" }
         };
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult AfficherMeteo(string ville = null)
+        public IActionResult AfficherMeteo(Properties prop = null)
         {
+            string ville = null;
+            if (prop != null)
+                ville = prop.Ville;
             string point = null;
             if (ville == null)
-                ville = "New York";
+                ville = "NY";
             try
             {
                point = PointsDisponibles[ville];
             }
             catch
             {
-                point = PointsDisponibles["New York"];
+                point = PointsDisponibles["NY"];
             }
             var clientMeteo = new RestClient("https://api.weather.gov/");
-            var request = new RestRequest("/points/" + point + "/forecast", Method.GET);
+            var request = new RestRequest("/gridpoints/" + point + "/forecast", Method.GET);
             IRestResponse response = clientMeteo.Execute(request);
-            Weather weather = JsonConvert.DeserializeObject<Weather>(response.Content);
-            return View(weather.Properties);
+            Properties properties = JsonConvert.DeserializeObject<Weather>(response.Content).Properties;
+            properties.Ville = ville;
+            return View(properties);
         }
     }
 }

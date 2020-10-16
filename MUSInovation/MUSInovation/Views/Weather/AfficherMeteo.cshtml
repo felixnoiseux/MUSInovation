@@ -3,8 +3,18 @@
 @{List<Period> Periods = Model.Periods;}
 
 <div class="text-center">
-    <h1 class="display-4">Météo à New York dans les prochains jours</h1>
+    <h1 class="display-4">Météo dans les prochains jours</h1>
 </div>
+
+<form action="AfficherMeteo">
+    <label for="ville">Lieu:</label>
+    <select id="ville" asp-for="Ville" value="@Model.Ville">
+        <option value="NY">New York</option>
+        <option value="BOS">Boston</option>
+        <option value="SF">San Franciso</option>
+    </select>
+    <input type="submit" value="Confirmer"/>
+</form>
 
 @for (int i = 0; i < Periods.Count; ++i)
 {

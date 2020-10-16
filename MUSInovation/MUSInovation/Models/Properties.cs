@@ -32,6 +32,8 @@ namespace MUSInovation.Models
 
         [DataMember(Name = "periods", IsRequired = true)]
         public List<Period> Periods { get; set; }
+
+        public string Ville { get; set; }
     }
 
     [DataContract]
