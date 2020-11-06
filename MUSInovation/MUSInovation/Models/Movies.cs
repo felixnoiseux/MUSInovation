@@ -7,11 +7,13 @@ namespace MUSInovation.Models
 {
     public class Movies
     {
-        public List<Movie> LstMovies { get; set; }
+        public List<Movie> Search { get; set; }
+
+        public string Message { get; set; }
 
         public Movies()
         {
-            LstMovies = new List<Movie>();
+            Search = new List<Movie>();
         }
     }
 }

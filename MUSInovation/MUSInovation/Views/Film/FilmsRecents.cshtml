@@ -5,11 +5,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Films les plus récents</h1>
-
 </div>
-
-
-
 
 <table class="table">
     <thead>
@@ -19,15 +15,12 @@
         </tr>
     </thead>
     <tbody>
-
-
-        @foreach (Movie m in Model.LstMovies)
+        @foreach (Movie m in Model.Search)
         {
                 <tr>
                     <td><a asp-controller="Film" asp-action="AfficherFilm" asp-route-id="@m.imdbID">@m.Title</a> </td>
                     <td>@m.Year</td>
                 </tr>
         }
-
     </tbody>
 </table>

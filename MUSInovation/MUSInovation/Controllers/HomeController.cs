@@ -33,8 +33,18 @@ namespace MUSInovation.Controllers
         public IActionResult Rechercher(Recherche recherche)
         {
             string valeur = recherche.valeur_recherche;
-
-            return View();
+            Movies movies = new Movies();
+            if(string.IsNullOrEmpty(valeur))
+                return View("Index");
+            var client = new RestClient("http://www.omdbapi.com");
+            var request = new RestRequest("/?s=" + valeur + "&type=Movie&apikey=a0564dcc", Method.GET);
+            IRestResponse response = client.Execute(request);
+            movies = JsonConvert.DeserializeObject<Movies>(response.Content);
+            if (movies.Search.Count == 0)
+                movies.Message = "Votre recherche n'a retourné aucun résultat. Cela peut être dû au fait que le titre " +
+                    "que vous avez entré ne correspond à aucun film ou qu'il correspond à trop de films pour que nous " +
+                    "puissions afficher les résultats.";
+            return View(movies);
         }
 
         public IActionResult AfficherFilm(Movie m)

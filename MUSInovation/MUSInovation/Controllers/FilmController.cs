@@ -83,7 +83,7 @@ namespace MUSInovation.Controllers
 
             foreach (string titre in titresFilmsRecents)
             {
-                var request = new RestRequest("/?t=" + titre + "&y=2020&apikey=a0564dcc", Method.GET);
+                var request = new RestRequest("/?t=" + titre + "&y=2020&type=Movie&apikey=a0564dcc", Method.GET);
                 IRestResponse response = client.Execute(request);
                 Movie film = new Movie();
                 film = JsonConvert.DeserializeObject<Movie>(response.Content);
@@ -95,7 +95,7 @@ namespace MUSInovation.Controllers
                     film.Plot = "Erreur lors du chargement";
                 }
 
-                movies.LstMovies.Add(film);
+                movies.Search.Add(film);
             }
 
             return View(movies);

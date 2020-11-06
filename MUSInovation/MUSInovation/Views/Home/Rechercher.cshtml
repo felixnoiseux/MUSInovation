@@ -1,1 +1,28 @@
-﻿<h1>Rechercehr</h1>
+﻿@model Movies
+
+<h1>Rechercher</h1>
+
+@if (Model.Search.Count == 0)
+{
+    <h2>@Model.Message</h2>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Année</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Movie m in Model.Search)
+            {
+                <tr>
+                    <td><a asp-controller="Film" asp-action="AfficherFilm" asp-route-id="@m.imdbID">@m.Title</a> </td>
+                    <td>@m.Year</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
