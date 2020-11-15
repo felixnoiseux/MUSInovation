@@ -28,16 +28,13 @@ namespace MUSInovation.Controllers
             return View();
         }
 
-
-        [HttpPost]
-        public IActionResult Rechercher(Recherche recherche)
+        public IActionResult Rechercher(string valeur_recherche = null)
         {
-            string valeur = recherche.valeur_recherche;
             Movies movies = new Movies();
-            if(string.IsNullOrEmpty(valeur))
-                return View("Index");
+            if(string.IsNullOrEmpty(valeur_recherche))
+                return RedirectToAction("Index");
             var client = new RestClient("http://www.omdbapi.com");
-            var request = new RestRequest("/?s=" + valeur + "&type=Movie&apikey=a0564dcc", Method.GET);
+            var request = new RestRequest("/?s=" + valeur_recherche + "&type=Movie&apikey=a0564dcc", Method.GET);
             IRestResponse response = client.Execute(request);
             movies = JsonConvert.DeserializeObject<Movies>(response.Content);
             if (movies.Search.Count == 0)
