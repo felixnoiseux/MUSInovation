@@ -36,11 +36,41 @@ namespace MUSInovation.Controllers
         [Route("/Film/AfficherFilm/{id}")]
         public IActionResult AfficherFilm(string id) //ID est imdbID
         {
-            Movie film = new Movie();
-            var clientOMDB = new RestClient("http://www.omdbapi.com");
-            var requestOMDB = new RestRequest("/?i=" + id + "&apikey=a0564dcc", Method.GET);
+            return AfficherFilmLogique("http://www.omdbapi.com", "/?i=" + id + "&apikey=a0564dcc", false);
+        }
+
+        [HttpGet]
+        [Route("/Film/AfficherFilmTMDB/{id}")]
+        public IActionResult AfficherFilmTMDB(string id) //ID est imdbID
+        {
+            return AfficherFilmLogique("https://api.themoviedb.org", $"/3/movie/{id}?api_key=cafc81c187346a6f467555cae2e5ebea", true);
+        }
+
+        public IActionResult FilmsRecents()
+        {
+            var client = new RestClient("https://api.themoviedb.org");
+            TMDBMovies movies = new TMDBMovies();
+
+            var request = new RestRequest("/3/trending/movie/week?api_key=cafc81c187346a6f467555cae2e5ebea", Method.GET);
+            IRestResponse response = client.Execute(request);
+            movies = JsonConvert.DeserializeObject<TMDBMovies>(response.Content);
+
+            return View(movies.GetMovies());
+        }
+
+        private IActionResult AfficherFilmLogique(string domaine, string requete, bool tmdb)
+        {
+            IMovie film = null;
+            var clientOMDB = new RestClient(domaine);
+            var requestOMDB = new RestRequest(requete, Method.GET);
             IRestResponse responseOMDB = clientOMDB.Execute(requestOMDB);
-            film = JsonConvert.DeserializeObject<Movie>(responseOMDB.Content);
+            if (tmdb)
+            {
+                film = JsonConvert.DeserializeObject<TMDBMovie>(responseOMDB.Content);
+                film = TMDBMovies.GetMovie((TMDBMovie)film);
+            }
+            else
+                film = JsonConvert.DeserializeObject<Movie>(responseOMDB.Content);
 
 
             if (film.Title == null)
@@ -73,34 +103,8 @@ namespace MUSInovation.Controllers
 
             }
 
-            return View(film);
+            return View("AfficherFilm", film);
         }
-
-        public IActionResult FilmsRecents()
-        {
-            var client = new RestClient("http://www.omdbapi.com");
-            Movies movies = new Movies();
-
-            foreach (string titre in titresFilmsRecents)
-            {
-                var request = new RestRequest("/?t=" + titre + "&y=2020&type=Movie&apikey=a0564dcc", Method.GET);
-                IRestResponse response = client.Execute(request);
-                Movie film = new Movie();
-                film = JsonConvert.DeserializeObject<Movie>(response.Content);
-
-                if (film.Title == null)
-                {
-                    film = new Movie();
-                    film.Title = "Erreur";
-                    film.Plot = "Erreur lors du chargement";
-                }
-
-                movies.Search.Add(film);
-            }
-
-            return View(movies);
-        }
-
 
     }
 }

@@ -15,10 +15,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Movie m in Model.Search)
+        @foreach (IMovie m in Model.Search)
         {
                 <tr>
-                    <td><a asp-controller="Film" asp-action="AfficherFilm" asp-route-id="@m.imdbID">@m.Title</a> </td>
+                    @{ 
+                        if (m is Movie)
+                        {
+                            <td><a asp-controller="Film" asp-action="AfficherFilm" asp-route-id="@m.imdbID">@m.Title</a> </td>
+                        }
+                        else 
+                        {
+                            <td><a asp-controller="Film" asp-action="AfficherFilmTMDB" asp-route-id="@m.imdbID">@m.Title</a></td>
+                        }
+                    }
                     <td>@m.Year</td>
                 </tr>
         }

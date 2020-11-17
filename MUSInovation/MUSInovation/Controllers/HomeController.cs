@@ -28,7 +28,7 @@ namespace MUSInovation.Controllers
             return View();
         }
 
-        public IActionResult Rechercher(string valeur_recherche = null)
+        public IActionResult Rechercher(string valeur_recherche = null, bool par_auteur = false)
         {
             Movies movies = new Movies();
             if(string.IsNullOrEmpty(valeur_recherche))
@@ -42,6 +42,16 @@ namespace MUSInovation.Controllers
                     "que vous avez entré ne correspond à aucun film ou qu'il correspond à trop de films pour que nous " +
                     "puissions afficher les résultats.";
             return View(movies);
+        }
+
+        public IActionResult RechercherParAuteur(string valeur_recherche = null)
+        {
+            Movies movies = new Movies();
+            if (string.IsNullOrEmpty(valeur_recherche))
+                return RedirectToAction("Index");
+            var client = new RestClient("https://www.themoviedb.org");
+            var request = new RestRequest("/3/movie/550?api_key=cafc81c187346a6f467555cae2e5ebea");
+            return View("Rechercher", movies);
         }
 
         public IActionResult AfficherFilm(Movie m)

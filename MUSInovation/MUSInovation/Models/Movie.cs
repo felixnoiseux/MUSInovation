@@ -7,8 +7,27 @@ using System.Threading.Tasks;
 namespace MUSInovation.Models
 {
     [DataContract]
-    public class Movie
+    public class Movie : IMovie
     {
+        public Movie()
+        {
+
+        }
+
+        public Movie(TMDBMovie movie)
+        {
+            Title = movie.Title;
+            Year = Year;
+            Rated = Rated;
+            Released = Released;
+            Genre = Genre;
+            Director = Director;
+            Writer = Writer;
+            Actors = Actors;
+            Plot = Plot;
+            Poster = Poster;
+            imdbID = imdbID;
+        }
         [DataMember(Name = "Title", IsRequired = false)]
         public string Title { get; set; }
 
