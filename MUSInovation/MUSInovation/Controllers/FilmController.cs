@@ -55,7 +55,7 @@ namespace MUSInovation.Controllers
             IRestResponse response = client.Execute(request);
             movies = JsonConvert.DeserializeObject<TMDBMovies>(response.Content);
 
-            return View(movies.GetMovies());
+            return View(new Movies(movies));
         }
 
         private IActionResult AfficherFilmLogique(string domaine, string requete, bool tmdb)

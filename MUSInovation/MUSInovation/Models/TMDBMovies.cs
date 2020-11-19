@@ -18,18 +18,6 @@ namespace MUSInovation.Models
             Search = new List<TMDBMovie>();
         }
 
-        public Movies GetMovies()
-        {
-            Movies movies = new Movies();
-            for(int i = 0; i < 20; ++i)
-            {
-                TMDBMovie m = (TMDBMovie)GetMovie(Search[i]);
-                if(m != null)
-                    movies.Search.Add(new Movie(m));
-            }
-            return movies;
-        }
-
         public static IMovie GetMovie(TMDBMovie movie)
         {
             IMovie m = movie;

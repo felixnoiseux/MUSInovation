@@ -30,13 +30,13 @@ namespace MUSInovation.Controllers
 
         public IActionResult Rechercher(string valeur_recherche = null, bool par_auteur = false)
         {
-            Movies movies = new Movies();
+            OMDBMovies movies = new OMDBMovies();
             if(string.IsNullOrEmpty(valeur_recherche))
                 return RedirectToAction("Index");
             var client = new RestClient("http://www.omdbapi.com");
             var request = new RestRequest("/?s=" + valeur_recherche + "&type=Movie&apikey=a0564dcc", Method.GET);
             IRestResponse response = client.Execute(request);
-            movies = JsonConvert.DeserializeObject<Movies>(response.Content);
+            movies = JsonConvert.DeserializeObject<OMDBMovies>(response.Content);
             if (movies.Search.Count == 0)
                 movies.Message = "Votre recherche n'a retourné aucun résultat. Cela peut être dû au fait que le titre " +
                     "que vous avez entré ne correspond à aucun film ou qu'il correspond à trop de films pour que nous " +
@@ -46,7 +46,7 @@ namespace MUSInovation.Controllers
 
         public IActionResult RechercherParAuteur(string valeur_recherche = null)
         {
-            Movies movies = new Movies();
+            OMDBMovies movies = new OMDBMovies();
             if (string.IsNullOrEmpty(valeur_recherche))
                 return RedirectToAction("Index");
             var client = new RestClient("https://www.themoviedb.org");
