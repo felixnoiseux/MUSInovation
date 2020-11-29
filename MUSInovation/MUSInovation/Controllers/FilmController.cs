@@ -14,19 +14,6 @@ namespace MUSInovation.Controllers
     public class FilmController : Controller
     {
 
-        private List<string> titresFilmsRecents = new List<string>()
-        {
-            "Bloodshot",
-            "Artemis Fowl",
-            "Invasion",
-            "Wonder Woman",
-            "Spenser Confidential",
-            "Rogue Warfare",
-            "Superman",
-            "Upside-Down Magic",
-            "Mortal Kombat"
-        };
-
         public IActionResult Index()
         {
             return View();
@@ -49,13 +36,15 @@ namespace MUSInovation.Controllers
         public IActionResult FilmsRecents()
         {
             var client = new RestClient("https://api.themoviedb.org");
-            TMDBMovies movies = new TMDBMovies();
+            TMDBMovies tmdbmovies = new TMDBMovies();
 
             var request = new RestRequest("/3/trending/movie/week?api_key=cafc81c187346a6f467555cae2e5ebea", Method.GET);
             IRestResponse response = client.Execute(request);
-            movies = JsonConvert.DeserializeObject<TMDBMovies>(response.Content);
+            tmdbmovies = JsonConvert.DeserializeObject<TMDBMovies>(response.Content);
+            Movies movies = new Movies(tmdbmovies);
+            movies.Search = movies.Search.Where(m => m.Year != null).OrderByDescending(m => int.Parse(m.Year)).ToList();
 
-            return View(new Movies(movies));
+            return View(movies);
         }
 
         private IActionResult AfficherFilmLogique(string domaine, string requete, bool tmdb)
